@@ -33,6 +33,7 @@ db.on('error', (error) => {
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
+const PORT = process.env.PORT || 3000;
 
 app.get('/get-queries', async (req, res) => {
   try {
@@ -43,7 +44,42 @@ app.get('/get-queries', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+app.post('/post-query', async (req, res) => {
+  const { query } = req.body;
+
+  try {
+    const newQuery = new QueryModel({ text: query });
+    const savedQuery = await newQuery.save();
+    res.json(savedQuery);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+app.post('/post-reply/:queryId', async (req, res) => {
+  const { queryId } = req.params;
+  const { reply } = req.body;
+
+  try {
+    const query = await QueryModel.findById(queryId);
+
+    if (!query) {
+      return res.status(404).json({ error: 'Query not found' });
+    }
+
+    // Create a new reply
+    const newReply = { text: reply };
+    query.replies = [...(query.replies || []), newReply];
+
+    // Save the updated query with the new reply
+    await query.save();
+
+    res.json(newReply);
+  } catch (error) {
+    console.error('Error posting reply:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 
 // const server = http.createServer((req,res) =>{
