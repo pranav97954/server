@@ -2,15 +2,10 @@ const http = require("http");
 const express = require("express");
 const mongoose = require('mongoose');
 const cors = require("cors");
-const UserModel = require('./models/User');
-const CareerModel = require('./models/Career');
+
 
 require("dotenv").config();
 
-//Video section
-const multer = require('multer');
-const VideoModel = require('./models/Video');
-const sanitizeFilename = require('sanitize-filename');
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -82,9 +77,9 @@ app.post('/post-reply/:queryId', async (req, res) => {
 
 
 
-// const server = http.createServer((req,res) =>{
-//   res.writeHead(200,{"Content-Type": "text/plain"});
-//   res.end("Hello world!");
-// });
+const server = http.createServer((req,res) =>{
+  res.writeHead(200,{"Content-Type": "text/plain"});
+  res.end("Hello world!");
+});
 
 app.listen(PORT,() => console.log("Server is running on port 3000"));
