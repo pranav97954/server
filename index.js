@@ -14,6 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 const QueryModel = require('./models/Query');
 const UserModel = require('./models/User');
 const CareerModel = require('./models/Career');
+const ContactModel = require('./models/Contact');
+const SubjectModel = require('./models/Subject');
+const TrainingModel = require('./models/Training');
 
 //Video section
 const multer = require('multer');
