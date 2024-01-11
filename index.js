@@ -1,4 +1,4 @@
-// const http = require("http");
+const http = require("http");
 const express = require("express");
 const mongoose = require('mongoose');
 const cors = require("cors");
@@ -501,9 +501,9 @@ app.get('/get-videos/:folderName', async (req, res) => {
 });
 
 
-// const server = http.createServer((req,res) =>{
-//   res.writeHead(200,{"Content-Type": "text/plain"});
-//   res.end("Hello world!");
-// });
+const server = http.createServer((req,res) =>{
+  res.writeHead(200,{"Content-Type": "text/plain"});
+  res.end("Hello world!");
+}); 
 
 app.listen(PORT,() => console.log("Server is running on port 3000"));
