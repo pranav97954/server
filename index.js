@@ -220,6 +220,13 @@ app.get('/adminview', async (req, res) => {
   }
 });
 
+app.use(
+  cors({
+   origin: ["http://localhost:5173"],
+   method:["GET","POST"],
+   credentials:true,
+  })
+);
 
 const server = http.createServer((req,res) =>{
   res.writeHead(200,{"Content-Type": "text/plain"});
